@@ -10,7 +10,7 @@ import com.qhh.camerademo.R;
 import com.sensetime.cameralibrary.CameraConfig;
 import com.sensetime.cameralibrary.camera1.CameraHelper;
 
-public class NormalCamera1Activity extends AppCompatActivity implements TextureView.SurfaceTextureListener {
+public class NormalCamera1Activity extends AppCompatActivity implements TextureView.SurfaceTextureListener, CameraHelper.CameraCallback {
 
     private TextureView mTextureView;
 
@@ -21,6 +21,8 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_normal_camera1);
         initView();
+
+        CameraHelper.getInstance().setCameraCallback(this);
     }
 
     private void initView() {
@@ -64,5 +66,10 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
     protected void onDestroy() {
         super.onDestroy();
         CameraHelper.getInstance().release();
+    }
+
+    @Override
+    public void onPreviewFrame(byte[] data) {
+
     }
 }

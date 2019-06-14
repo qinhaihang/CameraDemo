@@ -34,6 +34,9 @@ public class CameraHelper {
     public int mPreviewHeight; // 预览高度
     private Camera mCamera;
 
+    private CameraCallback mCameraCallback;
+    private byte[] mBuffer;
+
     public static CameraHelper getInstance() {
         if (instance == null) {
             synchronized (CameraHelper.class) {
@@ -102,9 +105,19 @@ public class CameraHelper {
             e.printStackTrace();
         }
 
+        initPreviewBuffer();
+
         mCamera.startPreview();
 
         return mCamera;
+    }
+
+    public float getPreviewScale(){
+        return mPreviewScale;
+    }
+
+    public void setCameraCallback(CameraCallback cameraCallback) {
+        mCameraCallback = cameraCallback;
     }
 
     public void release(){
@@ -153,6 +166,25 @@ public class CameraHelper {
             }
         }
         return previewSizes.get(index); // 默认返回与设置的分辨率最接近的预览尺寸
+    }
+
+    private void initPreviewBuffer() {
+        if (mCamera != null) {
+            mBuffer = new byte[mPreviewWidth * mPreviewHeight * 3 / 2]; // 初始化预览缓冲数据的大小,NV21格式大小
+            mCamera.addCallbackBuffer(mBuffer); // 将此预览缓冲数据添加到相机预览缓冲数据队列里
+            mCamera.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
+                @Override
+                public void onPreviewFrame(byte[] data, Camera camera) {
+                    if(mCameraCallback != null){
+                        mCameraCallback.onPreviewFrame(data);
+                    }
+                }
+            }); // 设置预览的回调
+        }
+    }
+
+    public interface CameraCallback{
+        void onPreviewFrame(byte[] data);
     }
 
 }
