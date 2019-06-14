@@ -29,11 +29,14 @@ public class CameraConfig {
     private int pictureWidth;
     private int pictureHeight;
 
+    private String focusMode;
+
     private SurfaceTexture surfaceTexture;
     private SurfaceHolder surfaceHolder;
 
     public CameraConfig(int cameraType, int previwFormat, int orientation, int previewWidth, int previewHeight,
-                        int pictureWidth,int pictureHeight, SurfaceTexture surfaceTexture,SurfaceHolder surfaceHolder) {
+                        int pictureWidth,int pictureHeight, SurfaceTexture surfaceTexture,SurfaceHolder surfaceHolder,
+                        String focusMode) {
         this.cameraType = cameraType;
         this.previwFormat = previwFormat;
         this.orientation = orientation;
@@ -43,6 +46,7 @@ public class CameraConfig {
         this.surfaceHolder = surfaceHolder;
         this.pictureWidth = pictureWidth;
         this.pictureHeight = pictureHeight;
+        this.focusMode = focusMode;
     }
 
     public int getCameraType() {
@@ -81,6 +85,10 @@ public class CameraConfig {
         return surfaceHolder;
     }
 
+    public String getFocusMode() {
+        return focusMode;
+    }
+
     public static class Builder {
 
         private int cameraType;
@@ -95,6 +103,8 @@ public class CameraConfig {
 
         private SurfaceTexture surfaceTexture;
         private SurfaceHolder surfaceHolder;
+
+        private String focusMode;
 
         public Builder setCameraType(int cameraType) {
             this.cameraType = cameraType;
@@ -137,9 +147,14 @@ public class CameraConfig {
             return this;
         }
 
+        public Builder setFocusMode(String focusMode) {
+            this.focusMode = focusMode;
+            return this;
+        }
+
         public CameraConfig builer(){
             return new CameraConfig(cameraType, previwFormat, orientation, previewWidth, previewHeight,
-                    pictureWidth, pictureHeight, surfaceTexture, surfaceHolder);
+                    pictureWidth, pictureHeight, surfaceTexture, surfaceHolder,focusMode);
         }
     }
 }

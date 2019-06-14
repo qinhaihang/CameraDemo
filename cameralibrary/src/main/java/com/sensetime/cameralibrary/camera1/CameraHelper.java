@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.hardware.Camera;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.sensetime.cameralibrary.BuildConfig;
@@ -76,29 +77,42 @@ public class CameraHelper {
 
         mPreviewScale = getPreviewScale(config.getPreviewWidth(),config.getPreviewHeight());
 
-        Camera.Size fitPreviewSize = getFitPreviewSize(parameters);
-        if (DEBUG) {
-            Log.i(TAG, "fitPreviewSize, width: " + fitPreviewSize.width + ", height: " + fitPreviewSize.height);
-        }
-        mPreviewWidth = fitPreviewSize.width;
-        mPreviewHeight = fitPreviewSize.height;
-        parameters.setPreviewSize(mPreviewWidth, mPreviewHeight);
+        setPreviewSize(parameters);
 
-        if(config.getPreviwFormat() != 0){
-            parameters.setPreviewFormat(config.getPreviwFormat());
-        }
+        setFormat(config, parameters);
 
-        parameters.setPictureFormat(ImageFormat.JPEG);
-        if(config.getPictureWidth() == 0 || config.getPictureHeight() == 0){
-            parameters.setPictureSize(mPreviewWidth,mPreviewHeight);
-        }else{
-            parameters.setPictureSize(config.getPictureWidth(),config.getPictureHeight());
-        }
+        setFocus(config,parameters);
 
         mCamera.setDisplayOrientation(config.getOrientation());
 
         mCamera.setParameters(parameters);
 
+        setSurface(config);
+
+        initPreviewBuffer();
+
+        mCamera.startPreview();
+
+        return mCamera;
+    }
+
+    private void setFocus(CameraConfig config,Camera.Parameters parameters) {
+
+        if(TextUtils.isEmpty(config.getFocusMode())){
+            return;
+        }
+
+        List<String> supportedFocusModes = parameters.getSupportedFocusModes();
+
+        if(supportedFocusModes.contains(config.getFocusMode())){
+            parameters.setFocusMode(config.getFocusMode());
+        }else{
+            parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_FIXED);
+        }
+
+    }
+
+    private void setSurface(CameraConfig config) {
         try {
 
             if(config.getSurfaceTexture() != null){
@@ -112,12 +126,29 @@ public class CameraHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
 
-        initPreviewBuffer();
+    private void setFormat(CameraConfig config, Camera.Parameters parameters) {
+        if(config.getPreviwFormat() != 0){
+            parameters.setPreviewFormat(config.getPreviwFormat());
+        }
 
-        mCamera.startPreview();
+        parameters.setPictureFormat(ImageFormat.JPEG);
+        if(config.getPictureWidth() == 0 || config.getPictureHeight() == 0){
+            parameters.setPictureSize(mPreviewWidth,mPreviewHeight);
+        }else{
+            parameters.setPictureSize(config.getPictureWidth(),config.getPictureHeight());
+        }
+    }
 
-        return mCamera;
+    private void setPreviewSize(Camera.Parameters parameters) {
+        Camera.Size fitPreviewSize = getFitPreviewSize(parameters);
+        if (DEBUG) {
+            Log.i(TAG, "fitPreviewSize, width: " + fitPreviewSize.width + ", height: " + fitPreviewSize.height);
+        }
+        mPreviewWidth = fitPreviewSize.width;
+        mPreviewHeight = fitPreviewSize.height;
+        parameters.setPreviewSize(mPreviewWidth, mPreviewHeight);
     }
 
     public float getPreviewScale(){
