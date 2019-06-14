@@ -28,17 +28,20 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
         mTextureView.setSurfaceTextureListener(this);
     }
 
-    private void openCamera() {
+    private void openCamera(SurfaceTexture surfaceTexture,int w,int h) {
         CameraConfig config = new CameraConfig.Builder()
                 .setCameraType(CameraConfig.BACK_CAMERA)
+                .setPreviewWidth(w)
+                .setPreviewHeight(h)
+                .setSurfaceTexture(surfaceTexture)
                 .builer();
 
-        CameraHelper.getInstance().openCamera(config,mTextureView);
+        CameraHelper.getInstance().openCamera(config);
     }
 
     @Override
     public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
-        openCamera();
+        openCamera(surface, width, height);
     }
 
     @Override

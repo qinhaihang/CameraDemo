@@ -1,6 +1,7 @@
 package com.sensetime.cameralibrary;
 
-import android.graphics.ImageFormat;
+import android.graphics.SurfaceTexture;
+import android.view.SurfaceHolder;
 
 /**
  * @author qinhaihang_vendor
@@ -19,13 +20,24 @@ public class CameraConfig {
 
     private int cameraType;
 
-    private int previwFormat = ImageFormat.NV21;
+    private int previwFormat;
     private int orientation = 90;
 
-    public CameraConfig(int cameraType,int previwFormat,int orientation) {
+    private int previewWidth;
+    private int previewHeight;
+
+    private SurfaceTexture surfaceTexture;
+    private SurfaceHolder surfaceHolder;
+
+    public CameraConfig(int cameraType, int previwFormat, int orientation, int previewWidth, int previewHeight,
+                        SurfaceTexture surfaceTexture,SurfaceHolder surfaceHolder) {
         this.cameraType = cameraType;
-        this.cameraType = previwFormat;
+        this.previwFormat = previwFormat;
         this.orientation = orientation;
+        this.previewWidth = previewWidth;
+        this.previewHeight = previewHeight;
+        this.surfaceTexture = surfaceTexture;
+        this.surfaceHolder = surfaceHolder;
     }
 
     public int getCameraType() {
@@ -40,11 +52,33 @@ public class CameraConfig {
         return orientation;
     }
 
+    public int getPreviewWidth() {
+        return previewWidth;
+    }
+
+    public int getPreviewHeight(){
+        return previewHeight;
+    }
+
+    public SurfaceTexture getSurfaceTexture() {
+        return surfaceTexture;
+    }
+
+    public SurfaceHolder getSurfaceHolder() {
+        return surfaceHolder;
+    }
+
     public static class Builder {
 
         private int cameraType;
         private int previwFormat;
         private int orientation;
+
+        private int previewWidth;
+        private int previewHeight;
+
+        private SurfaceTexture surfaceTexture;
+        private SurfaceHolder surfaceHolder;
 
         public Builder setCameraType(int cameraType) {
             this.cameraType = cameraType;
@@ -61,8 +95,29 @@ public class CameraConfig {
             return this;
         }
 
+        public Builder setPreviewWidth(int previewWidth) {
+            this.previewWidth = previewWidth;
+            return this;
+        }
+
+        public Builder setPreviewHeight(int previewHeight) {
+            this.previewHeight = previewHeight;
+            return this;
+        }
+
+        public Builder setSurfaceTexture(SurfaceTexture surfaceTexture) {
+            this.surfaceTexture = surfaceTexture;
+            return this;
+        }
+
+        public Builder setSurfaceHolder(SurfaceHolder surfaceHolder) {
+            this.surfaceHolder = surfaceHolder;
+            return this;
+        }
+
         public CameraConfig builer(){
-            return new CameraConfig(cameraType,previwFormat,orientation);
+            return new CameraConfig(cameraType,previwFormat,orientation,previewWidth,previewHeight,
+                    surfaceTexture,surfaceHolder);
         }
     }
 }

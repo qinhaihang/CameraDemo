@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.util.Log;
-import android.view.TextureView;
 
 import com.sensetime.cameralibrary.BuildConfig;
 import com.sensetime.cameralibrary.CameraConfig;
@@ -60,10 +59,9 @@ public class CameraHelper {
     /**
      * 针对 TextureView
      * @param config
-     * @param textureView
      * @return
      */
-    public Camera openCamera(CameraConfig config, TextureView textureView){
+    public Camera openCamera(CameraConfig config){
 
         if(config == null){
             return null;
@@ -72,7 +70,7 @@ public class CameraHelper {
         mCamera = Camera.open(config.getCameraType());
         Camera.Parameters parameters = mCamera.getParameters();
 
-        mPreviewScale = getPreviewScale(textureView.getWidth(),textureView.getHeight());
+        mPreviewScale = getPreviewScale(config.getPreviewWidth(),config.getPreviewHeight());
 
         Camera.Size fitPreviewSize = getFitPreviewSize(parameters);
         if (DEBUG) {
@@ -81,14 +79,25 @@ public class CameraHelper {
         mPreviewWidth = fitPreviewSize.width;
         mPreviewHeight = fitPreviewSize.height;
         parameters.setPreviewSize(mPreviewWidth, mPreviewHeight);
-        parameters.setPreviewFormat(config.getPreviwFormat());
+
+        if(config.getPreviwFormat() != 0){
+            parameters.setPreviewFormat(config.getPreviwFormat());
+        }
 
         mCamera.setDisplayOrientation(config.getOrientation());
 
         mCamera.setParameters(parameters);
 
         try {
-            mCamera.setPreviewTexture(textureView.getSurfaceTexture());
+
+            if(config.getSurfaceTexture() != null){
+                mCamera.setPreviewTexture(config.getSurfaceTexture());
+            }
+
+            if(config.getSurfaceHolder() != null){
+                mCamera.setPreviewDisplay(config.getSurfaceHolder());
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
