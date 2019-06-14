@@ -26,11 +26,14 @@ public class CameraConfig {
     private int previewWidth;
     private int previewHeight;
 
+    private int pictureWidth;
+    private int pictureHeight;
+
     private SurfaceTexture surfaceTexture;
     private SurfaceHolder surfaceHolder;
 
     public CameraConfig(int cameraType, int previwFormat, int orientation, int previewWidth, int previewHeight,
-                        SurfaceTexture surfaceTexture,SurfaceHolder surfaceHolder) {
+                        int pictureWidth,int pictureHeight, SurfaceTexture surfaceTexture,SurfaceHolder surfaceHolder) {
         this.cameraType = cameraType;
         this.previwFormat = previwFormat;
         this.orientation = orientation;
@@ -38,6 +41,8 @@ public class CameraConfig {
         this.previewHeight = previewHeight;
         this.surfaceTexture = surfaceTexture;
         this.surfaceHolder = surfaceHolder;
+        this.pictureWidth = pictureWidth;
+        this.pictureHeight = pictureHeight;
     }
 
     public int getCameraType() {
@@ -60,6 +65,14 @@ public class CameraConfig {
         return previewHeight;
     }
 
+    public int getPictureWidth() {
+        return pictureWidth;
+    }
+
+    public int getPictureHeight() {
+        return pictureHeight;
+    }
+
     public SurfaceTexture getSurfaceTexture() {
         return surfaceTexture;
     }
@@ -76,6 +89,9 @@ public class CameraConfig {
 
         private int previewWidth;
         private int previewHeight;
+
+        private int pictureWidth;
+        private int pictureHeight;
 
         private SurfaceTexture surfaceTexture;
         private SurfaceHolder surfaceHolder;
@@ -105,6 +121,12 @@ public class CameraConfig {
             return this;
         }
 
+        public Builder setPictureSize(int pictureWidth,int pictureHeight) {
+            this.pictureWidth = pictureWidth;
+            this.pictureHeight = pictureHeight;
+            return this;
+        }
+
         public Builder setSurfaceTexture(SurfaceTexture surfaceTexture) {
             this.surfaceTexture = surfaceTexture;
             return this;
@@ -116,8 +138,8 @@ public class CameraConfig {
         }
 
         public CameraConfig builer(){
-            return new CameraConfig(cameraType,previwFormat,orientation,previewWidth,previewHeight,
-                    surfaceTexture,surfaceHolder);
+            return new CameraConfig(cameraType, previwFormat, orientation, previewWidth, previewHeight,
+                    pictureWidth, pictureHeight, surfaceTexture, surfaceHolder);
         }
     }
 }

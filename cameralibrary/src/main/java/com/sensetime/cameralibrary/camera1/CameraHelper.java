@@ -2,6 +2,7 @@ package com.sensetime.cameralibrary.camera1;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.ImageFormat;
 import android.hardware.Camera;
 import android.util.Log;
 
@@ -85,6 +86,13 @@ public class CameraHelper {
 
         if(config.getPreviwFormat() != 0){
             parameters.setPreviewFormat(config.getPreviwFormat());
+        }
+
+        parameters.setPictureFormat(ImageFormat.JPEG);
+        if(config.getPictureWidth() == 0 || config.getPictureHeight() == 0){
+            parameters.setPictureSize(mPreviewWidth,mPreviewHeight);
+        }else{
+            parameters.setPictureSize(config.getPictureWidth(),config.getPictureHeight());
         }
 
         mCamera.setDisplayOrientation(config.getOrientation());

@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.WindowManager;
 
+import com.qhh.camerademo.Activity.CaptureActivity;
 import com.qhh.camerademo.Activity.NormalCamera1Activity;
 import com.qhh.permission.PermissionHelper;
 
@@ -21,7 +21,8 @@ public class MainActivity extends AppCompatActivity {
                 .init(this)
                 .checkPermission(
                         Manifest.permission.CAMERA,
-                        Manifest.permission_group.STORAGE
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
                 );
 
     }
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         switch(id){
             case R.id.btn_normal:
                 startActivity(new Intent(this, NormalCamera1Activity.class));
+                break;
+            case R.id.btn_capture:
+                startActivity(new Intent(this, CaptureActivity.class));
                 break;
             default:
                 break;
