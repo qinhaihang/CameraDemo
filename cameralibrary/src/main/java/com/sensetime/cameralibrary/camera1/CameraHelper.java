@@ -124,6 +124,7 @@ public class CameraHelper {
         if (mCamera != null) {
             mCamera.stopPreview();
             mCamera.setPreviewCallback(null);
+            mCamera.setPreviewCallbackWithBuffer(null);
             mCamera.stopPreview();
             mCamera.release();
             mCamera = null;
