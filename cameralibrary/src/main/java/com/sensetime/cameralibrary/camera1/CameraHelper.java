@@ -89,7 +89,11 @@ public class CameraHelper {
 
         setSurface(config);
 
-        initPreviewBuffer();
+        if(config.isPreviewBuffer()){
+            initPreviewBuffer();
+        }else{
+            initPreviewCallback();
+        }
 
         mCamera.startPreview();
 
@@ -215,12 +219,24 @@ public class CameraHelper {
             mCamera.setPreviewCallbackWithBuffer(new Camera.PreviewCallback() {
                 @Override
                 public void onPreviewFrame(byte[] data, Camera camera) {
+
                     if(mCameraCallback != null){
                         mCameraCallback.onPreviewFrame(data);
                     }
                 }
             }); // 设置预览的回调
         }
+    }
+
+    private void initPreviewCallback() {
+        mCamera.setPreviewCallback(new Camera.PreviewCallback() {
+            @Override
+            public void onPreviewFrame(byte[] data, Camera camera) {
+                if(mCameraCallback != null){
+                    mCameraCallback.onPreviewFrame(data);
+                }
+            }
+        });
     }
 
     public interface CameraCallback{

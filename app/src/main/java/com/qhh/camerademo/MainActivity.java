@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.qhh.camerademo.activity.CaptureActivity;
 import com.qhh.camerademo.activity.NormalCamera1Activity;
+import com.qhh.camerademo.activity.OpenGLActivity;
 import com.qhh.permission.PermissionHelper;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_capture:
                 startActivity(new Intent(this, CaptureActivity.class));
+                break;
+            case R.id.btn_gl:
+                startActivity(new Intent(this, OpenGLActivity.class));
                 break;
             default:
                 break;

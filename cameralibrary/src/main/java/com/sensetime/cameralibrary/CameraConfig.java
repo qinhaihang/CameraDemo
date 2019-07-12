@@ -34,9 +34,11 @@ public class CameraConfig {
     private SurfaceTexture surfaceTexture;
     private SurfaceHolder surfaceHolder;
 
+    private boolean isPreviewBuffer = true;
+
     public CameraConfig(int cameraType, int previwFormat, int orientation, int previewWidth, int previewHeight,
-                        int pictureWidth,int pictureHeight, SurfaceTexture surfaceTexture,SurfaceHolder surfaceHolder,
-                        String focusMode) {
+                        int pictureWidth, int pictureHeight, SurfaceTexture surfaceTexture, SurfaceHolder surfaceHolder,
+                        String focusMode, boolean isPreviewBuffer) {
         this.cameraType = cameraType;
         this.previwFormat = previwFormat;
         this.orientation = orientation;
@@ -47,6 +49,7 @@ public class CameraConfig {
         this.pictureWidth = pictureWidth;
         this.pictureHeight = pictureHeight;
         this.focusMode = focusMode;
+        this.isPreviewBuffer = isPreviewBuffer;
     }
 
     public int getCameraType() {
@@ -65,7 +68,7 @@ public class CameraConfig {
         return previewWidth;
     }
 
-    public int getPreviewHeight(){
+    public int getPreviewHeight() {
         return previewHeight;
     }
 
@@ -89,6 +92,10 @@ public class CameraConfig {
         return focusMode;
     }
 
+    public boolean isPreviewBuffer() {
+        return isPreviewBuffer;
+    }
+
     public static class Builder {
 
         private int cameraType;
@@ -105,6 +112,8 @@ public class CameraConfig {
         private SurfaceHolder surfaceHolder;
 
         private String focusMode;
+
+        private boolean isPreviewBuffer;
 
         public Builder setCameraType(int cameraType) {
             this.cameraType = cameraType;
@@ -131,7 +140,7 @@ public class CameraConfig {
             return this;
         }
 
-        public Builder setPictureSize(int pictureWidth,int pictureHeight) {
+        public Builder setPictureSize(int pictureWidth, int pictureHeight) {
             this.pictureWidth = pictureWidth;
             this.pictureHeight = pictureHeight;
             return this;
@@ -152,9 +161,14 @@ public class CameraConfig {
             return this;
         }
 
-        public CameraConfig builer(){
+        public Builder setPreviewBuffer(boolean previewBuffer) {
+            isPreviewBuffer = previewBuffer;
+            return this;
+        }
+
+        public CameraConfig builer() {
             return new CameraConfig(cameraType, previwFormat, orientation, previewWidth, previewHeight,
-                    pictureWidth, pictureHeight, surfaceTexture, surfaceHolder,focusMode);
+                    pictureWidth, pictureHeight, surfaceTexture, surfaceHolder, focusMode,isPreviewBuffer);
         }
     }
 }
