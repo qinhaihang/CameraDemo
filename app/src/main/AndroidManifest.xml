@@ -17,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.CaptureActivity"></activity>
-        <activity android:name=".Activity.NormalCamera1Activity" />
+        <activity android:name=".activity.OpenGLActivity"></activity>
+        <activity android:name=".activity.CaptureActivity" />
+        <activity android:name=".activity.NormalCamera1Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

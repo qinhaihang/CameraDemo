@@ -1,4 +1,4 @@
-package com.qhh.camerademo.Activity;
+package com.qhh.camerademo.activity;
 
 import android.graphics.SurfaceTexture;
 import android.os.Bundle;
@@ -31,8 +31,11 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
     }
 
     private void openCamera(SurfaceTexture surfaceTexture,int w,int h) {
+
+        boolean cameraHardware = CameraHelper.getInstance().checkCameraHardware(this);
+
         CameraConfig config = new CameraConfig.Builder()
-                .setCameraType(CameraConfig.BACK_CAMERA)
+                .setCameraType(CameraConfig.FRONT_CAMERA)
                 .setPreviewWidth(w)
                 .setPreviewHeight(h)
                 .setSurfaceTexture(surfaceTexture)

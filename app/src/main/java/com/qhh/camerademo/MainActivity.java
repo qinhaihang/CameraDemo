@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.qhh.camerademo.Activity.CaptureActivity;
-import com.qhh.camerademo.Activity.NormalCamera1Activity;
+import com.qhh.camerademo.activity.CaptureActivity;
+import com.qhh.camerademo.activity.NormalCamera1Activity;
 import com.qhh.permission.PermissionHelper;
 
 public class MainActivity extends AppCompatActivity {

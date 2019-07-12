@@ -1,4 +1,4 @@
-package com.qhh.camerademo.Activity;
+package com.qhh.camerademo.activity;
 
 import android.hardware.Camera;
 import android.os.Bundle;
