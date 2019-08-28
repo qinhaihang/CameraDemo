@@ -150,8 +150,10 @@ public class CameraHelper {
         if (DEBUG) {
             Log.i(TAG, "fitPreviewSize, width: " + fitPreviewSize.width + ", height: " + fitPreviewSize.height);
         }
-        mPreviewWidth = fitPreviewSize.width;
-        mPreviewHeight = fitPreviewSize.height;
+        /*mPreviewWidth = fitPreviewSize.width;
+        mPreviewHeight = fitPreviewSize.height;*/
+        mPreviewWidth = 1920;
+        mPreviewHeight = 1080;
         parameters.setPreviewSize(mPreviewWidth, mPreviewHeight);
     }
 
@@ -177,9 +179,9 @@ public class CameraHelper {
     private float getPreviewScale(int viewWidth,int viewHeight){
         float scale;
         if (viewWidth > viewHeight) {
-            scale = viewHeight / viewWidth;
+            scale = (float) viewHeight / (float) viewWidth;
         } else {
-            scale = viewWidth / viewHeight;
+            scale = (float) viewWidth / (float) viewHeight;
         }
 
         return scale;

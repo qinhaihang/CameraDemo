@@ -1,8 +1,10 @@
 package com.qhh.camerademo.activity;
 
 import android.graphics.SurfaceTexture;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.TextureView;
 import android.view.WindowManager;
 
@@ -34,8 +36,17 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
 
         boolean cameraHardware = CameraHelper.getInstance().checkCameraHardware(this);
 
+        int numberOfCameras = Camera.getNumberOfCameras();
+        for (int i = 0; i < numberOfCameras; i++) {
+            Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+            Camera.getCameraInfo(i,cameraInfo);
+            int facing = cameraInfo.facing;
+            Log.d("qhh_camera",">>> cameraId " + i +" is " + facing);
+        }
+
         CameraConfig config = new CameraConfig.Builder()
-                .setCameraType(CameraConfig.FRONT_CAMERA)
+                //.setCameraType(CameraConfig.FRONT_CAMERA)
+                .setCameraType(CameraConfig.BACK_CAMERA)
                 .setPreviewWidth(w)
                 .setPreviewHeight(h)
                 .setSurfaceTexture(surfaceTexture)
@@ -73,6 +84,6 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
 
     @Override
     public void onPreviewFrame(byte[] data) {
-
+        Log.i("qhh_camera",">>> data size " + data.length);
     }
 }
