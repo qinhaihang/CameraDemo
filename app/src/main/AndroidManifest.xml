@@ -17,16 +17,52 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.OpenGLActivity"></activity>
+        <activity android:name=".activity.OpenGLActivity">
+
+        </activity>
         <activity android:name=".activity.CaptureActivity" />
-        <activity android:name=".activity.NormalCamera1Activity" />
+        <activity android:name=".activity.NormalCamera1Activity" >
+
+        </activity>
         <activity android:name=".MainActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <!--<receiver android:name=".receiver.SenseLockBootReceiver"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+
+                <!--<category android:name="android.intent.category.HOME" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+
+<!--        <receiver android:name=".receiver.SDStatusReceiver"-->
+<!--            android:enabled="true"-->
+<!--            android:exported="true">-->
+<!--            <intent-filter>-->
+
+<!--                &lt;!&ndash; <action android:name="android.intent.action.MEDIA_EJECT" /> &ndash;&gt;-->
+<!--                <action android:name="android.intent.action.MEDIA_MOUNTED" />-->
+<!--                <action android:name="android.intent.action.MEDIA_REMOVED" />-->
+<!--                <action android:name="android.intent.action.MEDIA_UNMOUNTED" />-->
+
+<!--                <data android:scheme="file" />-->
+<!--            </intent-filter>-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MEDIA_MOUNTED_FOR_FIRTIME" />-->
+
+<!--                <data android:scheme="file" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
     </application>
 
 </manifest>

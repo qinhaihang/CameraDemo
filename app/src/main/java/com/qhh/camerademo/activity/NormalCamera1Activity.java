@@ -45,8 +45,8 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
         }
 
         CameraConfig config = new CameraConfig.Builder()
-                //.setCameraType(CameraConfig.FRONT_CAMERA)
-                .setCameraType(CameraConfig.BACK_CAMERA)
+                .setCameraType(CameraConfig.FRONT_CAMERA)
+//                .setCameraType(CameraConfig.BACK_CAMERA)
                 .setPreviewWidth(w)
                 .setPreviewHeight(h)
                 .setSurfaceTexture(surfaceTexture)

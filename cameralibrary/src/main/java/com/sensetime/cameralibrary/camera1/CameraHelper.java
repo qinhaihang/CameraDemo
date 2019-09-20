@@ -152,8 +152,10 @@ public class CameraHelper {
         }
         /*mPreviewWidth = fitPreviewSize.width;
         mPreviewHeight = fitPreviewSize.height;*/
-        mPreviewWidth = 1920;
-        mPreviewHeight = 1080;
+        /*mPreviewWidth = 1920;
+        mPreviewHeight = 1080;*/
+        mPreviewWidth = 1280;
+        mPreviewHeight = 720;
         parameters.setPreviewSize(mPreviewWidth, mPreviewHeight);
     }
 
