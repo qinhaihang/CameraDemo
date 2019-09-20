@@ -3,7 +3,6 @@ package com.qhh.camerademo.activity;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.TextureView;
 import android.view.WindowManager;
@@ -11,6 +10,8 @@ import android.view.WindowManager;
 import com.qhh.camerademo.R;
 import com.sensetime.cameralibrary.CameraConfig;
 import com.sensetime.cameralibrary.camera1.CameraHelper;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class NormalCamera1Activity extends AppCompatActivity implements TextureView.SurfaceTextureListener, CameraHelper.CameraCallback {
 
@@ -46,7 +47,7 @@ public class NormalCamera1Activity extends AppCompatActivity implements TextureV
 
         CameraConfig config = new CameraConfig.Builder()
                 .setCameraType(CameraConfig.FRONT_CAMERA)
-//                .setCameraType(CameraConfig.BACK_CAMERA)
+                .setCameraType(CameraConfig.BACK_CAMERA)
                 .setPreviewWidth(w)
                 .setPreviewHeight(h)
                 .setSurfaceTexture(surfaceTexture)

@@ -3,13 +3,15 @@ package com.qhh.camerademo;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.qhh.camerademo.activity.CameraXActivity;
 import com.qhh.camerademo.activity.CaptureActivity;
 import com.qhh.camerademo.activity.NormalCamera1Activity;
 import com.qhh.camerademo.activity.OpenGLActivity;
 import com.qhh.permission.PermissionHelper;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.btn_gl:
                 startActivity(new Intent(this, OpenGLActivity.class));
+                break;
+            case R.id.btn_camera_x:
+                startActivity(new Intent(this, CameraXActivity.class));
                 break;
             default:
                 break;
