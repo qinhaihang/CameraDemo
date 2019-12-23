@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.qhh.camerademo.activity.Camera2Activity;
 import com.qhh.camerademo.activity.CameraXActivity;
 import com.qhh.camerademo.activity.CaptureActivity;
 import com.qhh.camerademo.activity.NormalCamera1Activity;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_camera_x:
                 startActivity(new Intent(this, CameraXActivity.class));
                 break;
-            default:
+            case R.id.btn_camera_2:
+                startActivity(new Intent(this, Camera2Activity.class));
                 break;
         }
     }

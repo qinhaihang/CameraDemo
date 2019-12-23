@@ -3,12 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <uses-feature android:name="android.hardware.camera" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,10 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.CameraXActivity"></activity>
-        <activity android:name=".activity.OpenGLActivity"></activity>
+        <activity android:name=".activity.Camera2Activity"></activity>
+        <activity android:name=".activity.CameraXActivity" />
+        <activity android:name=".activity.OpenGLActivity" />
         <activity android:name=".activity.CaptureActivity" />
-        <activity android:name=".activity.NormalCamera1Activity"></activity>
+        <activity android:name=".activity.NormalCamera1Activity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,5 +24,11 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

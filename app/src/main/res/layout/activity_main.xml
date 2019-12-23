@@ -36,4 +36,11 @@
         android:text="cameraX"
         android:onClick="click"/>
 
+    <Button
+        android:id="@+id/btn_camera_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="camera2"
+        android:onClick="click"/>
+
 </LinearLayout>
