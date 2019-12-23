@@ -12,6 +12,8 @@ import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.params.StreamConfigurationMap;
+import android.media.Image;
+import android.media.ImageReader;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +26,8 @@ import android.view.TextureView;
 import com.qhh.camerademo.R;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,12 +36,27 @@ public class Camera2Activity extends AppCompatActivity {
 
     private static final String TAG = Camera2Activity.class.getSimpleName();
 
+    private static final int CAMERA_TYPE = CameraCharacteristics.LENS_FACING_FRONT;
+
     private CameraDevice mCameraDevice;
     private TextureView mTextureView;
     private SurfaceTexture mSurfaceTexture;
     private CameraHandler mCameraHandler;
     private CameraCaptureSession mPreviewSession;
     private CaptureRequest mPreviewRequest;
+
+    private ImageReader mImageReader;
+
+    private final ImageReader.OnImageAvailableListener mOnImageAvailableListener = reader -> {
+
+        Image image = reader.acquireNextImage();
+        if(image.getFormat() == ImageFormat.YUV_420_888){
+
+            Image.Plane[] planes = image.getPlanes();
+
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,17 +105,20 @@ public class Camera2Activity extends AppCompatActivity {
 
                 Log.d(TAG, "cameraId cameraCharacteristics is " + cameraCharacteristics.toString());
 
+                Integer cameraType = cameraCharacteristics.get(CameraCharacteristics.LENS_FACING);
+                if(cameraType != null && cameraType != CAMERA_TYPE){
+                    continue;
+                }
+
                 StreamConfigurationMap map = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
 
-                Size[] outputSizes = map.getOutputSizes(ImageFormat.JPEG);
+                Size[] outputSizes = map.getOutputSizes(ImageFormat.YUV_420_888);
 
-                /*for (int i = 0; i < outputSizes.length; i++) {
-                    Size outputSize = outputSizes[i];
-                    Log.d(TAG,"size width = " + outputSize.getWidth() + ", height = " + outputSize.getHeight());
-                }*/
+                Size largeSize = Collections.max(Arrays.asList(outputSizes), new CompareSizesByArea());
+                Log.d(TAG,"size width = " + largeSize.getWidth() + ", height = " + largeSize.getHeight());
 
-
-
+                mImageReader = ImageReader.newInstance(largeSize.getWidth(), largeSize.getHeight(), ImageFormat.YUV_420_888, 2);
+                mImageReader.setOnImageAvailableListener(mOnImageAvailableListener,mCameraHandler);
             }
 
         } catch (CameraAccessException e) {
@@ -207,5 +229,19 @@ public class Camera2Activity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
         }
+    }
+
+    /**
+     * Compares two {@code Size}s based on their areas.
+     */
+    class CompareSizesByArea implements Comparator<Size> {
+
+        @Override
+        public int compare(Size lhs, Size rhs) {
+            // We cast here to ensure the multiplications won't overflow
+            return Long.signum((long) lhs.getWidth() * lhs.getHeight() -
+                    (long) rhs.getWidth() * rhs.getHeight());
+        }
+
     }
 }
