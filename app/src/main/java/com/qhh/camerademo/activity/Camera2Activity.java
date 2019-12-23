@@ -3,6 +3,7 @@ package com.qhh.camerademo.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -10,11 +11,13 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CaptureRequest;
+import android.hardware.camera2.params.StreamConfigurationMap;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.util.Size;
 import android.view.Surface;
 import android.view.TextureView;
 
@@ -82,6 +85,17 @@ public class Camera2Activity extends AppCompatActivity {
                 CameraCharacteristics cameraCharacteristics = cameraManager.getCameraCharacteristics(cameraId);
 
                 Log.d(TAG, "cameraId cameraCharacteristics is " + cameraCharacteristics.toString());
+
+                StreamConfigurationMap map = cameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+
+                Size[] outputSizes = map.getOutputSizes(ImageFormat.JPEG);
+
+                /*for (int i = 0; i < outputSizes.length; i++) {
+                    Size outputSize = outputSizes[i];
+                    Log.d(TAG,"size width = " + outputSize.getWidth() + ", height = " + outputSize.getHeight());
+                }*/
+
+
 
             }
 
